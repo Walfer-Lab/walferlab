@@ -6,35 +6,35 @@ import Link from "next/link";
 
 export const ProjectsData = [
   {
-    ProjectIMG: "/Images/Projects/Ecommerce-Website.webp", 
+    ProjectIMG: "/images/Projects/Ecommerce-Website.webp", 
     ProjectTitle: "Premium E-Commerce Web Application"
   },
   {
-    ProjectIMG: "/Images/Projects/Dashboard.webp", 
+    ProjectIMG: "/images/Projects/Dashboard.webp", 
     ProjectTitle: "AI-Powered Customer Analytics Dashboard"
   },
   {
-    ProjectIMG: "/Images/Projects/Real-Estate.webp", 
+    ProjectIMG: "/images/Projects/Real-Estate.webp", 
     ProjectTitle: "Cross-Platform Real Estate Mobile App"
   },
   {
-    ProjectIMG: "/Images/Projects/Saas-Portal.webp", 
+    ProjectIMG: "/images/Projects/Saas-Portal.webp", 
     ProjectTitle: "Minimalist SaaS Client Portal"
   },
   {
-    ProjectIMG: "/Images/Projects/Logistic-Tracking.webp", 
+    ProjectIMG: "/images/Projects/Logistic-Tracking.webp", 
     ProjectTitle: "High-Performance Logistics Tracking Platform"
   },
   {
-    ProjectIMG: "/Images/Projects/Workflow.webp", 
+    ProjectIMG: "/images/Projects/Workflow.webp", 
     ProjectTitle: "Automated Workflow Management System"
   },
   {
-    ProjectIMG: "/Images/Projects/Wealth-Management.webp", 
+    ProjectIMG: "/images/Projects/Wealth-Management.webp", 
     ProjectTitle: "Fintech Wealth Management Mobile App"
   },
   {
-    ProjectIMG: "/Images/Projects/Healthcare-Management.webp", 
+    ProjectIMG: "/images/Projects/Healthcare-Management.webp", 
     ProjectTitle: "Custom Healthcare Scheduling Software"
   }
 ];
