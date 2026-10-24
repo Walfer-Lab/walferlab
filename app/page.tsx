@@ -1,287 +1,175 @@
-'use client';
-
-import { motion, Variants } from "framer-motion";
-import { Facebook02Icon, Globe02Icon, InstagramIcon, Linkedin02Icon, WhatsappIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import ServiceCard from "@/components/LandingPage/ServiceCard";
-import BenefitsCard from "@/components/LandingPage/BenefitsCard";
-import Link from "next/link";
-import Image from "next/image";
-import Hero_Main from "@/public/images/hero-main.jpg";
-import { useRef, useState } from 'react';
-import { sendContactEmail } from '@/app/actions/SendEmail';
-
-const ServiceData = [
-  {
-    INDEX: 1, 
-    TITLE: "Web Services", 
-    SUBTITLE: "Custom, fast, and scalable websites built to help your business grow and stand out online."
-  },
-  {
-    INDEX: 2, 
-    TITLE: "Mobile Development", 
-    SUBTITLE: "Beautiful Android and iOS applications designed for performance, user experience, and business success."
-  },
-  {
-    INDEX: 3, 
-    TITLE: "AI & Automation", 
-    SUBTITLE: "Smart AI-powered solutions, chatbots, and workflow automation that save time and increase productivity."
-  },
-  {
-    INDEX: 4, 
-    TITLE: "Custom Software Solutions", 
-    SUBTITLE: "Tailor-made software, dashboards, APIs, and cloud systems built to solve your unique business challenges."
-  }
-];
-
-const BenefitsData = [
-  {
-    BCIndex: "01",
-    imgsrc: "/images/benefits/direct-collaboration.jpg",
-    BCtitle: "Direct Founder Collaboration",
-    BCsubtitle: "Work directly with the founder. No middlemen or account managers—just clear communication, agile decision-making, and dedicated focus on your project's success."
-  },
-  {
-    BCIndex: "02",
-    imgsrc: "/images/benefits/premium-design.webp", 
-    BCtitle: "Premium Minimalist Design",
-    BCsubtitle: "Stand out with sleek, modern, and user-centric interfaces. We craft high-quality visual experiences that build trust, engage users, and drive conversions."
-  },
-  {
-    BCIndex: "03",
-    imgsrc: "/images/benefits/high-performance.webp", 
-    BCtitle: "High-Performance Engineering",
-    BCsubtitle: "Built for speed and reliability using industry-leading tools like Next.js and robust cloud architectures to ensure your platform performs flawlessly under heavy traffic."
-  },
-];
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.6, ease: "easeOut" } 
-  }
-};
+import Link from 'next/link';
 
 export default function Home() {
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const [isPending, setIsPending] = useState(false);
-
-  const handleSubmit = async (formData: FormData) => {
-    setIsPending(true);
-    const result = await sendContactEmail(formData);
-    setIsPending(false);
-    
-    if (result.success) {
-      alert('Message sent successfully!');
-      formRef.current?.reset(); // Clears your form inputs
-    } else {
-      alert('Failed to send message. Please try again.');
-    }
-  };
-
   return (
-    <main className="sm:mx-8 scrollbar-none">
-      
+    <main className="min-h-screen bg-white text-slate-900 font-sans">
       {/* Hero Section */}
-      <section>
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          className="pt-20 w-full h-screen grid grid-rows-2 grid-cols-1 gap-2 rounded-2xl p-4"
-        >
-          <div className="relative w-full flex flex-col justify-end">
-            <p className="text-xl font-semibold py-3">Trusted by founders from various industries</p>
-            <p className="text-5xl sm:text-7xl font-general font-medium text-black">Bring your business online</p>
-            <p className="text-5xl sm:text-7xl font-general font-medium text-black">With a professional <span className="text-sky-500">website</span> and <span className="text-sky-500">app</span></p>
-
-            <motion.div 
-              initial={{ opacity: 0, rotate: 0 }}
-              animate={{ opacity: 1, rotate: 12 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute -bottom-10 z-40 right-1/2 w-fit rounded-2xl p-2 bg-linear-to-br from-blue-300 to-blue-500 text-gray-800"
+      <section className="relative bg-gradient-to-b from-blue-50 via-white to-white py-24 px-6 md:px-12 text-center border-b border-slate-100">
+        <div className="max-w-5xl mx-auto space-y-6">
+          <span className="inline-block px-4 py-1.5 bg-blue-100 text-[#0F52BA] font-semibold text-sm rounded-full tracking-wide">
+            Founder-Led Venture Studio & Full-Stack Partner
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            We Help Startups & Businesses <br className="hidden md:block" />
+            <span className="text-[#0F52BA]">Set Up, Build, and Grow</span>
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            WalferLab is your dedicated software and venture studio partner. Founded by Ramesh Beniwal, we turn ambitious ideas into market-defining digital products with end-to-end strategy, engineering, and growth.
+          </p>
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="#quote"
+              className="px-8 py-3.5 bg-[#0F52BA] text-white font-medium rounded-lg hover:bg-[#0C4194] transition shadow-md w-full sm:w-auto"
             >
-              <HugeiconsIcon icon={Globe02Icon} size={48} strokeWidth={2} />
-            </motion.div>
-          </div>
-
-          <div className="relative flex w-full h-full rounded-b-2xl rounded-t-sm bg-gray-200 overflow-hidden">
-              <Image src={Hero_Main} alt="hero image" fill loading="eager" className="object-cover object-center w-full h-full" />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Services */}
-      <section id="services">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="w-full px-4 sm:px-10 sm:rounded-3xl bg-black my-20"
-        >
-          <p className="text-3xl text-white/90 font-general font-medium text-center pt-10">Our <span className="font-semibold">Services</span></p>
-          
-         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-12">
-          {ServiceData.map(({ INDEX, TITLE, SUBTITLE }) => (
-            <ServiceCard 
-              key={INDEX} 
-              index={INDEX} 
-              title={TITLE} 
-              subtitle={SUBTITLE} 
-            />
-          ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Benefits Section */}
-      <section id="benefits">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-        >
-          <div className="flex flex-row justify-between items-end p-4 mt-20">
-            <p className="text-3xl sm:text-4xl font-general text-black/95 font-medium">Enjoy all these benefits <br /> when you build with us.</p>
-            <a href="/#contact" className="hidden sm:block text-sm font-semibold font-general underline underline-offset-8">Ready to get started? Contact us</a>
-          </div>
-
-          <div className="flex flex-col font-general font-medium my-8 border-y-2 border-gray-300 divide-gray-300 divide-y-2">
-           {BenefitsData.map(({ BCIndex, imgsrc, BCtitle, BCsubtitle }) => (
-            <BenefitsCard
-              key={BCIndex}
-              BCIndex={BCIndex}
-              imgsrc={imgsrc}
-              BCtitle={BCtitle}
-              BCsubtitle={BCsubtitle}
-            />
-          ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="flex flex-col lg:flex-row gap-12 lg:gap-20 w-full max-w-7xl mx-auto my-40"
-        >
-          {/* Left Column: Info */}
-          <div className="flex-1 flex flex-col justify-between space-y-10 p-4">
-            <div className="max-w-xl">
-              <p className="text-3xl sm:text-4xl font-general font-medium text-black/95 leading-tight">
-                Always ready to help you and answer your questions
-              </p>
-              <p className="text-md font-general font-medium text-black/70 pt-4 leading-relaxed">
-                Have a technical challenge or a new project idea? WalferLab is ready to answer your questions and build your solution.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="space-y-1">
-                <p className="text-lg font-general font-semibold text-black/90">Call us</p>
-                <p className="text-md font-general font-medium text-black/70">+91 75979 70067</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-lg font-general font-semibold text-black/90">Our location</p>
-                <p className="text-md font-general font-medium text-black/70">Nexus Tower, 3rd Floor, Jaipur, RJ 302033</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-lg font-general font-semibold text-black/90">Email</p>
-                <p className="text-md font-general font-medium text-black/70">hello@walferlab.com</p>
-              </div>
-              <div className="space-y-3">
-                <p className="text-lg font-general font-semibold text-black/90">Social Network</p>
-                <div className="flex flex-row items-center gap-3">
-                  {/* Icons mapped statically for brevity */}
-                  {[InstagramIcon, WhatsappIcon, Facebook02Icon, Linkedin02Icon].map((Icon, idx) => (
-                    <Link key={idx} href='/' className="text-black/80 p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
-                      <HugeiconsIcon icon={Icon} size={20} />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Form */}
-          <form 
-            ref={formRef}
-            action={handleSubmit}
-            className="flex-1 w-full max-w-lg bg-gray-200 sm:rounded-2xl p-8 space-y-8"
-          >
-            <div>
-              <p className="text-3xl text-black/95 font-general font-medium pb-2">Get in touch</p>
-              <p className="text-md text-black/60 font-general font-medium leading-relaxed">
-                Tell me about your next big idea. Let's build something exceptional together.
-              </p>
-            </div>
-            
-            <div className="space-y-5">
-              <input 
-                type="text" 
-                name="name"
-                required
-                className="w-full text-md text-black font-medium font-general py-2 bg-transparent outline-none border-b border-black/20 focus:border-black/90 transition-colors placeholder:text-black/40" 
-                placeholder="Your Full Name" 
-              />
-              <input 
-                type="text" 
-                name="contactInfo"
-                required
-                className="w-full text-md text-black font-medium font-general py-2 bg-transparent outline-none border-b border-black/20 focus:border-black/90 transition-colors placeholder:text-black/40" 
-                placeholder="Your Email/Mobile No." 
-              />
-              <input 
-                type="text" 
-                name="company"
-                className="w-full text-md text-black font-medium font-general py-2 bg-transparent outline-none border-b border-black/20 focus:border-black/90 transition-colors placeholder:text-black/40" 
-                placeholder="Your Company Name" 
-              />
-              <textarea 
-                name="message"
-                required
-                className="w-full text-md text-black font-medium font-general py-2 bg-transparent outline-none border-b border-black/20 focus:border-black/90 resize-none h-28 scrollbar-none transition-colors placeholder:text-black/40" 
-                placeholder="Your Message" 
-              />
-            </div>
-
-            <button 
-              type="submit" 
-              disabled={isPending}
-              className="w-full sm:w-auto text-white text-sm font-general font-medium bg-black/90 px-8 py-3.5 hover:bg-black rounded-full transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              Request a Quote
+            </Link>
+            <Link
+              href="/venture-studio"
+              className="px-8 py-3.5 bg-slate-100 text-slate-800 font-medium rounded-lg hover:bg-slate-200 transition w-full sm:w-auto border border-slate-200"
             >
-              {isPending ? 'Sending...' : 'Send Message'}
-            </button>
-          </form>
-        </motion.div>
-      </section>
-
-      {/* Footer */}
-      <section>
-        <div className="flex flex-col gap-6 sm:flex-row justify-between w-full bg-black/90 sm:rounded-2xl sm:mx-2 sm:my-4 p-6 items-center">
-          <div className="flex flex-col">
-            <p className="text-3xl font-clash font-medium text-white text-center">Walfer Lab</p>
-            <p className="text-sm text-white/60 font-general">&copy; All Rights Reserved. Walfer Lab 2026</p>
-          </div>
-
-          <div className="sm:w-sm grid grid-cols-4 sm:grid-cols-2 gap-3 text-sm font-general font-medium tracking-wide text-white/80">
-            <Link href='/work'>Our work</Link>
-            <Link href='/career'>Career</Link>
-            <Link href='/#services'>Services</Link>
-            <Link href='/#contact'>Contact</Link>
+              Explore Our Model
+            </Link>
           </div>
         </div>
       </section>
 
+      {/* Services Overview */}
+      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Services Overview</h2>
+          <p className="text-slate-600 mt-2 max-w-2xl mx-auto">
+            Full-stack engineering, product design, and strategic execution tailored for scaling enterprises and startups.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#0F52BA] transition shadow-sm">
+            <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#0F52BA] flex items-center justify-center font-bold text-xl mb-6">01</div>
+            <h3 className="text-xl font-bold mb-3 text-slate-900">Web & WebApps</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">High-performance Next.js and React applications built for speed, conversion, and accessibility.</p>
+            <Link href="/services/web-development" className="text-[#0F52BA] font-semibold hover:underline">Learn more &rarr;</Link>
+          </div>
+          <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#0F52BA] transition shadow-sm">
+            <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#0F52BA] flex items-center justify-center font-bold text-xl mb-6">02</div>
+            <h3 className="text-xl font-bold mb-3 text-slate-900">Mobile Engineering</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">Cross-platform iOS & Android mobile solutions delivering native performance and intuitive UX.</p>
+            <Link href="/services/mobile-development" className="text-[#0F52BA] font-semibold hover:underline">Learn more &rarr;</Link>
+          </div>
+          <div className="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-[#0F52BA] transition shadow-sm">
+            <div className="w-12 h-12 rounded-xl bg-blue-100 text-[#0F52BA] flex items-center justify-center font-bold text-xl mb-6">03</div>
+            <h3 className="text-xl font-bold mb-3 text-slate-900">AI & Automation</h3>
+            <p className="text-slate-600 leading-relaxed mb-4">Smart AI integration, custom LLM workflows, and automated pipeline optimizations.</p>
+            <Link href="/services/ai-automation" className="text-[#0F52BA] font-semibold hover:underline">Learn more &rarr;</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3-Phase Venture Studio Model */}
+      <section className="py-20 px-6 md:px-12 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-[#0F52BA] font-bold uppercase tracking-wider text-sm">Our Methodology</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">The 3-Phase Venture Studio Model</h2>
+            <p className="text-slate-600 mt-2 max-w-2xl mx-auto">From strategic inception to sustained ecosystem scale.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm relative">
+              <span className="text-5xl font-extrabold text-blue-100 absolute top-6 right-6">01</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Set Up</h3>
+              <p className="text-slate-600 leading-relaxed">Discovery, domain architecture, product design, technology stack selection, and go-to-market roadmap definition.</p>
+            </div>
+            <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm relative">
+              <span className="text-5xl font-extrabold text-blue-100 absolute top-6 right-6">02</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Build</h3>
+              <p className="text-slate-600 leading-relaxed">Agile full-stack software development, rigorous QA testing, secure cloud infrastructure setup, and rapid MVP deployment.</p>
+            </div>
+            <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm relative">
+              <span className="text-5xl font-extrabold text-blue-100 absolute top-6 right-6">03</span>
+              <h3 className="text-2xl font-bold text-slate-900 mb-3">Grow</h3>
+              <p className="text-slate-600 leading-relaxed">Data-driven performance optimization, feature scaling, SEO, user acquisition acceleration, and continuous engineering support.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Selected Case Studies */}
+      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Selected Case Studies</h2>
+            <p className="text-slate-600 mt-2">Real products built and scaled with WalferLab venture architecture.</p>
+          </div>
+          <Link href="/work" className="text-[#0F52BA] font-semibold mt-4 md:mt-0 hover:underline">
+            View All Work &rarr;
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 hover:shadow-md transition">
+            <span className="text-xs font-semibold px-3 py-1 bg-blue-100 text-[#0F52BA] rounded-full">SaaS & FinTech</span>
+            <h3 className="text-2xl font-bold text-slate-900 mt-4 mb-2">Automated Venture Financial Platform</h3>
+            <p className="text-slate-600 mb-6">Designed and deployed an automated accounting and financial intelligence suite for high-growth startups.</p>
+            <Link href="/work/fintech-suite" className="text-[#0F52BA] font-semibold hover:underline">Read Case Study &rarr;</Link>
+          </div>
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 hover:shadow-md transition">
+            <span className="text-xs font-semibold px-3 py-1 bg-blue-100 text-[#0F52BA] rounded-full">AI Platform</span>
+            <h3 className="text-2xl font-bold text-slate-900 mt-4 mb-2">Enterprise AI Workflow Engine</h3>
+            <p className="text-slate-600 mb-6">Built an intelligent document parser and enterprise agent orchestrator reducing manual processing by 85%.</p>
+            <Link href="/work/ai-workflow-engine" className="text-[#0F52BA] font-semibold hover:underline">Read Case Study &rarr;</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Quote */}
+      <section className="py-20 px-6 md:px-12 bg-blue-50/60 border-y border-blue-100">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <blockquote className="text-2xl md:text-3xl font-medium text-slate-800 italic leading-snug">
+            &ldquo;At WalferLab, we don&apos;t just build code—we take complete founder-level ownership of products, aligning engineering precision with real business growth.&rdquo;
+          </blockquote>
+          <div>
+            <div className="font-bold text-slate-900 text-lg">Ramesh Beniwal</div>
+            <div className="text-[#0F52BA] font-medium text-sm">Founder & Lead Architect, WalferLab</div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-6 md:px-12 max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Frequently Asked Questions</h2>
+          <p className="text-slate-600 mt-2">Everything you need to know about partnering with WalferLab.</p>
+        </div>
+        <div className="space-y-6">
+          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">How does the Venture Studio model differ from a traditional agency?</h3>
+            <p className="text-slate-600">We work as your long-term full-stack software partner, taking strategic responsibility for product success, architecture, and growth rather than just delivering isolated tasks.</p>
+          </div>
+          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">What tech stacks do you specialize in?</h3>
+            <p className="text-slate-600">We specialize in Next.js, React, React Native, TypeScript, Tailwind CSS v4, Node.js, Python AI services, and modern cloud platforms.</p>
+          </div>
+          <div className="p-6 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">How fast can we launch our product?</h3>
+            <p className="text-slate-600">Our streamlined Set Up & Build methodology allows us to take initial product concepts to market MVPs in 4 to 8 weeks.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Request a Quote CTA */}
+      <section id="quote" className="py-20 px-6 md:px-12 bg-gradient-to-r from-[#0F52BA] to-blue-800 text-white text-center">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold">Ready to Build Your Venture?</h2>
+          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+            Get in touch with Ramesh Beniwal and the WalferLab team to get a detailed quote and product architecture breakdown.
+          </p>
+          <div className="pt-4">
+            <Link
+              href="/contact"
+              className="inline-block px-8 py-4 bg-white text-[#0F52BA] font-bold text-lg rounded-xl hover:bg-blue-50 transition shadow-lg"
+            >
+              Request a Quote Now
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
