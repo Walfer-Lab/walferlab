@@ -1,12 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --font-general : "Satoshi", sans-serif;
-  --font-clash : "Clash Display", sans-serif;
-  --font-switzer : "Switzer", sans-serif;
-  --font-general : "General Sans", sans-serif;
+  --color-primary: #0F52BA;
+  --color-primary-hover: #0C4194;
+  --color-primary-light: #EFF6FF;
+  --font-general: "Satoshi", sans-serif;
+  --font-clash: "Clash Display", sans-serif;
+  --font-switzer: "Switzer", sans-serif;
+}
+
+:root {
+  --primary: #0F52BA;
+  --primary-hover: #0C4194;
+  --bg-surface: #FFFFFF;
+  --bg-slate: #F8FAFC;
+  --text-main: #0F172A;
+  --text-muted: #475569;
 }
 
 body {
   font-family: 'Satoshi', sans-serif;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
